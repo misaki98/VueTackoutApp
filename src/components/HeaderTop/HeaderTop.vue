@@ -10,9 +10,12 @@
 </template>
 
 <script>
+
 export default {
   data() {
-    return {};
+    return {
+
+    }
   },
   props: {
     title: String
@@ -20,7 +23,8 @@ export default {
 
   components: {},
 
-  methods: {}
+  methods: {},
+
 };
 </script>
 <style lang='less' scoped>

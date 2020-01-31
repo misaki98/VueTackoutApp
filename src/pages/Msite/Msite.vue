@@ -1,6 +1,6 @@
 <template>
   <section class="msite">
-    <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
+    <HeaderTop :title="address.name">
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo"></i>
       </span>
@@ -130,6 +130,7 @@
 
 <script>
 import Swiper from 'swiper'
+import {mapState} from 'vuex'
 import 'swiper/css/swiper.min.css'
 
 import HeaderTop from "../../components/HeaderTop/HeaderTop"
@@ -155,7 +156,10 @@ export default {
   },
   computed: {},
 
-  methods: {}
+  methods: {},
+  computed: {
+    ...mapState(['address'])
+  },
 };
 </script>
 <style lang='stylus' scoped>
