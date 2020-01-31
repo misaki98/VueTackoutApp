@@ -37,8 +37,6 @@ export default {
 
   computed: {},
 
-  mounted: {},
-
   methods: {
     goTo(path){
       this.$router.replace(path)

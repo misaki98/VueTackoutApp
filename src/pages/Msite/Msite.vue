@@ -10,59 +10,22 @@
     </HeaderTop>
     <!--首页导航-->
     <nav class="msite_nav">
-      <div class="swiper-container">
+      <div class="swiper-container" v-if="categorys.length">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
+          <div class="swiper-slide" v-for="(categorys, index) in categorysArr" :key="index">
+            <a
+              href="javascript:"
+              class="link_to_food"
+              v-for="(category, index) in categorys"
+              :key="index"
+            >
               <div class="food_container">
-                <img src="./images/nav/1.jpg" />
+                <img :src="baseImageUrl+category.image_url" />
               </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg" />
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/3.jpg" />
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/4.jpg" />
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/5.jpg" />
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/6.jpg" />
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/7.jpg" />
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/8.jpg" />
-              </div>
-              <span>土豪推荐</span>
+              <span>{{category.title}}</span>
             </a>
           </div>
-          <div class="swiper-slide">
+          <!-- <div class="swiper-slide">
             <a href="javascript:" class="link_to_food">
               <div class="food_container">
                 <img src="./images/nav/9.jpg" />
@@ -111,11 +74,12 @@
               </div>
               <span>土豪推荐</span>
             </a>
-          </div>
+          </div>-->
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
       </div>
+      <img src="./images/msite_back.svg" alt="" v-else>
     </nav>
     <!--首页附近商家-->
     <div class="msite_shop_list">
@@ -123,22 +87,24 @@
         <i class="iconfont icon-xuanxiang"></i>
         <span class="shop_header_title">附近商家</span>
       </div>
-      <ShopList />
+      <ShopList :shops="shops" />
     </div>
   </section>
 </template>
 
 <script>
-import Swiper from 'swiper'
-import {mapState} from 'vuex'
-import 'swiper/css/swiper.min.css'
+import Swiper from "swiper";
+import { mapState } from "vuex";
+import "swiper/css/swiper.min.css";
 
-import HeaderTop from "../../components/HeaderTop/HeaderTop"
-import ShopList from "../../components/ShopList/ShopList"
+import HeaderTop from "../../components/HeaderTop/HeaderTop";
+import ShopList from "../../components/ShopList/ShopList";
 
 export default {
   data() {
-    return {};
+    return {
+      baseImageUrl:'https://fuss10.elemecdn.com'
+    };
   },
 
   components: {
@@ -146,19 +112,39 @@ export default {
     ShopList
   },
   mounted() {
-    new Swiper('.swiper-container',{
+    this.$store.dispatch("getCategorys");
+    this.$store.dispatch("getShops");
+    new Swiper(".swiper-container", {
       // 创建一个swiper实例对象，来实现数据轮播
-      loop:true,
-      pagination:{
-        el:'.swiper-pagination'
+      loop: true,
+      observer:true,
+      pagination: {
+        el: ".swiper-pagination"
       }
-    })
+    });
   },
-  computed: {},
-
   methods: {},
   computed: {
-    ...mapState(['address'])
+    ...mapState(["address", "categorys","shops"]),
+    // 根据categorys一维数组生成一个二维数组,且小数组中元素个数最大为8个
+    categorysArr() {
+      const { categorys } = this;
+      const Arr = [];
+      let minArr = [];
+      categorys.forEach((c, i) => {
+        if (minArr.length === 8) {
+          minArr = [];
+        }
+        if (minArr.length === 0) {
+          Arr.push(minArr);
+        }
+
+        minArr.push(c);
+      });
+      return Arr;
+    }
+  },
+  watch: {
   },
 };
 </script>
@@ -167,7 +153,6 @@ export default {
 
 &.msite { // 首页
   width: 100%;
-
 
   .msite_nav {
     bottom-border-1px(#e4e4e4);
@@ -244,8 +229,6 @@ export default {
         line-height: 20px;
       }
     }
-
-    
   }
 }
 </style>
