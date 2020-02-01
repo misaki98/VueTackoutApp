@@ -4,7 +4,9 @@
 import {
     RECEIVE_SHOPS,
     REVEIVE_CATEGORYS,
-    REVEIVE_ADDRESS
+    REVEIVE_ADDRESS,
+    RECEIVE_USER_INFO,
+    RESET_USER_INFO
 } from './mutation-types'
 export default {
     [REVEIVE_ADDRESS](state,{address}){
@@ -17,4 +19,10 @@ export default {
     [RECEIVE_SHOPS](state,{shops}){
         state.shops = shops
     },
+    [RECEIVE_USER_INFO](state,{userInfo}){
+        state.userInfo = userInfo
+    },
+    [RESET_USER_INFO](state){
+        state.userInfo = {}
+    }
 }

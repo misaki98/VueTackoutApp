@@ -1,11 +1,12 @@
 <template>
   <section class="msite">
     <HeaderTop :title="address.name">
-      <span class="header_search" slot="left">
+      <router-link class="header_search" slot="left" to="/search">
         <i class="iconfont icon-sousuo"></i>
-      </span>
+      </router-link>
       <span class="header_login" slot="right">
-        <span class="header_login_text">登录|注册</span>
+        <router-link tag="span" to='/login' class="header_login_text" v-if="!userInfo._id">登录|注册</router-link>
+        <i class="iconfont icon-person" v-else></i>
       </span>
     </HeaderTop>
     <!--首页导航-->
@@ -125,7 +126,7 @@ export default {
   },
   methods: {},
   computed: {
-    ...mapState(["address", "categorys","shops"]),
+    ...mapState(["address", "categorys","shops","userInfo"]),
     // 根据categorys一维数组生成一个二维数组,且小数组中元素个数最大为8个
     categorysArr() {
       const { categorys } = this;

@@ -26,14 +26,12 @@ export default {
       for (let i = 0; i < scoreInteger; i++) {
         scs.push("on");
       }
-      console.log(score - scoreInteger * 10)
       if ((score - scoreInteger) * 10 >= 5) {
           scs.push('half')
       }
       while (scs.length<5) {
           scs.push('off')
       }
-      console.log(scs)
       return scs
     }
   },

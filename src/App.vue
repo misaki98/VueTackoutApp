@@ -7,6 +7,7 @@
 
 <script>
 import {mapActions} from 'vuex'
+import {reqUserInfo} from './api'
 import FooterGuide from './components/FooterGuide/FooterGuide'
 export default {
   data () {
@@ -19,9 +20,14 @@ export default {
   },
 
   computed: {},
-  mounted() {
+  async mounted() {
     // this.$store.dispatch('getAddress')
     this.getAddress()
+    const result = await reqUserInfo()
+    if(result.code===0){
+      const user = result.data
+      this.$store.dispatch('recordUser',user)
+    }
   },
 
   methods: {
