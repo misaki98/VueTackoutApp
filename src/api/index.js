@@ -22,3 +22,8 @@ export const reqPhoneLogin = (phone, code) => ajax(BASE_URL + '/login_sms', { ph
 export const reqUserInfo = () => ajax(BASE_URL + '/userinfo')
 // [10、用户登出](#10用户登出)<br/>
 export const reqLogout = () => ajax(BASE_URL + '/logout')
+
+// 定义mock请求接口
+export const reqShopInfo = () => ajax('/info')
+export const reqShopRatings = () => ajax('/ratings')
+export const reqShopGoods = () => ajax('/goods')
