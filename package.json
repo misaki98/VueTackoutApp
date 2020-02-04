@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "better-scroll": "^1.15.2",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "mint-ui": "^2.2.13",

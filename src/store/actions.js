@@ -89,7 +89,8 @@ export default {
         const result = await reqShopGoods()
         if (result.code === 0) {
             const goods = result.data
-            commit(RECEIVE_GOODS, { goods }) // 如 果 组 件 中 传 递 了 接 收 消 息 的 回 调 函 数 ,数 据 更 新 后 ,调 用 回 调 通 知 调 用 的 组 件
+            commit(RECEIVE_GOODS, { goods })
+             // 如 果 组 件 中 传 递 了 接 收 消 息 的 回 调 函 数 ,数 据 更 新 后 ,调 用 回 调 通 知 调 用 的 组 件
             cb && cb()
         }
     },
