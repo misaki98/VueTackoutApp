@@ -9,7 +9,9 @@ import {
     RESET_USER_INFO,
     RECEIVE_RATINGS,
     RECEIVE_GOODS,
-    RECEIVE_INFO
+    RECEIVE_INFO,
+    INCREMENT_FOOD_COUNT,
+    DECREMENT_FOOD_COUNT
 } from './mutation-types'
 import {
     reqAddress,
@@ -94,5 +96,12 @@ export default {
             cb && cb()
         }
     },
-
+    // 同步更新food中的count数量
+    updateFoodCount({commit},{isAdd,food}){
+        if(isAdd){
+            commit(INCREMENT_FOOD_COUNT,{food}) //传递包含food的一个对象
+        }else{
+            commit(DECREMENT_FOOD_COUNT,{food})
+        }
+    }
 }
