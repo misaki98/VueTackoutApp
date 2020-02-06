@@ -11,3 +11,4 @@ export const RECEIVE_RATINGS = 'receive_ratings' // 接 收 商 家 评 价 数 
 export const RECEIVE_INFO = 'receive_info' // 接 收 商 家 信 息
 export const INCREMENT_FOOD_COUNT = 'increment_food_count' //增加food中的count值
 export const DECREMENT_FOOD_COUNT = 'decrement_food_count' //减少food中的count值
+export const RESET_CART = 'reset_cart' //清空购物车
