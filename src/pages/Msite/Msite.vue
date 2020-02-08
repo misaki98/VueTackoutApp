@@ -21,7 +21,7 @@
               :key="index"
             >
               <div class="food_container">
-                <img :src="baseImageUrl+category.image_url" />
+                <img v-lazy="baseImageUrl+category.image_url" />
               </div>
               <span>{{category.title}}</span>
             </a>

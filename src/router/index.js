@@ -3,10 +3,17 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MSite from '../pages/Msite/MSite.vue'
-import Search from '../pages/Search/Search.vue'
-import Order from '../pages/Order/Order.vue'
-import Profile from '../pages/Profile/Profile.vue'
+
+// import MSite from '../pages/Msite/MSite.vue'
+// import Search from '../pages/Search/Search.vue'
+// import Order from '../pages/Order/Order.vue'
+// import Profile from '../pages/Profile/Profile.vue'
+// 使用路由懒加载
+const MSite = () => import('../pages/Msite/MSite.vue')
+const Search = () => import('../pages/Search/Search.vue')
+const Order = () => import('../pages/Order/Order.vue')
+const Profile = () => import('../pages/Profile/Profile.vue')
+
 import Login from '../pages/Login/Login'
 import Shop from '../pages/Shop/Shop'
 import ShopGoods from '../pages/Shop/ShopGoods/ShopGoods'
@@ -20,7 +27,7 @@ export default new VueRouter({
     routes:[
         {
             path:'/msite',
-            component:MSite,
+            component:MSite, //返回路由组件的函数
             meta:{
                 showFooter:true
             }

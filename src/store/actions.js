@@ -12,7 +12,8 @@ import {
     RECEIVE_INFO,
     INCREMENT_FOOD_COUNT,
     DECREMENT_FOOD_COUNT,
-    RESET_CART
+    RESET_CART,
+    RECEIVE_SEARCH_SHOPS
 } from './mutation-types'
 import {
     reqAddress,
@@ -21,7 +22,8 @@ import {
     reqLogout,
     reqShopGoods,
     reqShopInfo,
-    reqShopRatings
+    reqShopRatings,
+    reqSearchShop
 } from '../api'
 export default {
     // 能和后台交互的异步action
@@ -93,20 +95,30 @@ export default {
         if (result.code === 0) {
             const goods = result.data
             commit(RECEIVE_GOODS, { goods })
-             // 如 果 组 件 中 传 递 了 接 收 消 息 的 回 调 函 数 ,数 据 更 新 后 ,调 用 回 调 通 知 调 用 的 组 件
+            // 如 果 组 件 中 传 递 了 接 收 消 息 的 回 调 函 数 ,数 据 更 新 后 ,调 用 回 调 通 知 调 用 的 组 件
             cb && cb()
         }
     },
     // 同步更新food中的count数量
-    updateFoodCount({commit},{isAdd,food}){
-        if(isAdd){
-            commit(INCREMENT_FOOD_COUNT,{food}) //传递包含food的一个对象
-        }else{
-            commit(DECREMENT_FOOD_COUNT,{food})
+    updateFoodCount({ commit }, { isAdd, food }) {
+        if (isAdd) {
+            commit(INCREMENT_FOOD_COUNT, { food }) //传递包含food的一个对象
+        } else {
+            commit(DECREMENT_FOOD_COUNT, { food })
         }
     },
     // 同步清空购物车
-    clearCart({commit}){
+    clearCart({ commit }) {
         commit(RESET_CART)
+    },
+    // 异步获取搜索结果
+    async searchShops({ commit, state }, {keyword, cb}) {
+        const geohash = state.latitude + ',' + state.longitude
+        const result = await reqSearchShop(geohash, keyword)
+        if (result.code === 0) {
+            const searchShops = result.data
+            commit(RECEIVE_SEARCH_SHOPS, { searchShops })
+            cb && cb()
+        }
     }
 }
